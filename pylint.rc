@@ -1,0 +1,345 @@
+# lint Python modules using external checkers.
+#
+# This is the main checker controlling the other ones and the reports
+# generation. It is itself both a raw checker and an astng checker in order
+# to:
+# * handle message activation / deactivation at the module level
+# * handle some basic but necessary stats'data (number of classes, methods...)
+#
+[MAIN]
+# Fixes "import-error" for imports of every custom module.
+init-hook='import sys; sys.path.append("melp")'
+
+# Specify a configuration file.
+#rcfile=
+
+# Python code to execute, usually for sys.path manipulation such as
+# pygtk.require().
+#init-hook=
+
+# Add <file or directory> to the black list. It should be a base name, not a
+# path. You may set this option multiple times.
+# Ignore Django migration directories.
+# Ignore auto-generated Django managers.
+ignore=migrations, managers, schedule_migrations, request_migrations
+
+# Pickle collected data for later comparisons.
+persistent=yes
+
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+load-plugins=
+
+[MESSAGES CONTROL]
+
+# Enable only checker(s) with the given id(s). This option conflicts with the
+# disable-checker option
+#enable-checker=
+
+# Enable all checker(s) except those with the given id(s). This option
+# conflicts with the enable-checker option
+#disable-checker=
+
+# Enable all messages in the listed categories (IRCWEF).
+#enable-msg-cat=
+
+# Enable the message(s) with the given id(s).
+#enable-msg=
+
+#http://docs.pylint.org/features.html
+#http://pylint-messages.wikidot.com/all-codes
+#pylint --list-msgs > pylint.messages
+
+# All these are disabled below.
+# See full list at https://gist.github.com/durden/10694028
+# C0103: variable regex check.
+# C0111: missing docstring check. It's too vague. Complains about no docstrings in __init__ and other places we don't care about.
+# C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck) - isinstance() check doesn't work if both objects descend from the same class
+# C0206: Consider iterating with .items() (consider-using-dict-items)
+# C0207: use-maxsplit-arg
+# C0209: Formatting a regular string which could be a f-string (consider-using-f-string)
+# C0302: *Too many lines in module (%s)*
+# C0321: *More than one statement on a single line*
+# C0325: *Unnecessary parens after %r keyword*
+# C0415: Import outside toplevel - This would need to be disabled for every import done to avoid a circular import error
+# E0110: *abstract-class-instantiated*
+# E0202: *An attribute defined in %s line %s hides this method*
+# E0203: *Access to member %r before its definition line %s*
+# E0307: __str__ does not return str (invalid-str-returned)
+# E0601: used-before-assignment
+# E0611: *No name %r in module %r*
+# E1003: *Bad first argument %r given to super()*
+# E1101: member check...this is usually wrong.
+# E1102: *%s is not callable*
+# E1120: No value for argument
+# E1121: Too many positional arguments for method call
+# E1129: not-context-manager
+# E1133: *Non-iterable value %s is used in an iterating context*
+# E1135: *Value '%s' doesn't support membership test*
+# E1136: *Value '%s' is unsubscriptable*
+# R0401: cyclic import check...because sometimes it's wrong.
+# R0801: *Similar lines in %s files*
+# R0901: Too many ancestors
+# R0902: too many instance attributes check.
+# R0903: too few public methods check...makes no sense with Django.
+# R0904: too many public method check.
+# R0911: *Too many return statements (%s/%s)*
+# R0912: *Too many branches (%s/%s)*
+# R0913: too many argument check.
+# R0914: *Too many local variables (%s/%s)*
+# R0915: *Too many statements (%s/%s)*
+# R0916: *Too many boolean expressions in if statement (%s/%s)*
+# R1702: too-many-nested-blocks
+# R1705: no-else-return
+# R1706: consider-using-ternary
+# R1710: Either all return statements in a function should return an expression, or none of them should.
+# R1735: use-dict-literal
+# W0104: no effect check.
+# W0108: *Lambda may not be necessary*
+# W0122: *Use of exec*
+# W0123: Use of eval (eval-used)
+# W0125: Using a conditional statement with a constant value (using-constant-test)
+# W0201: *Attribute %r defined outside __init__*
+# W0212: protected data check.
+# W0221: Parameters differ
+# W0223: *Method %r is abstract in class %r but is not overridden*
+# W0311: bad-indentation
+# W0401: wildcard import.
+# W0404: reimport check...this is sometimes wrong.
+# W0511: fixme check.
+# W0612: unused variable check.
+# W0613: unused argument check. Too vague.
+# W0614: wildcard import usage check.
+# W0621: *Redefining name %r from outer scope (line %s)*
+# W0631: *Using possibly undefined loop variable %r*
+# W0632: *Possible unbalanced tuple unpacking
+# W0640: cell-var-from-loop
+# W0718: broad-exception-caught
+# W0719: Raising too general exception: Exception (broad-exception-raised)
+# W1113: Keyword argument before variable positional arguments list in the definition of __init__ function (keyword-arg-before-vararg)
+# W1510: subprocess-run-check
+# W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+disable=C0103,C0111,C0123,C0206,C0207,C0209,C0302,C0321,C0325,C0415,E0110,E0202,E0203,E0307,E0601,E0611,E1003,E1101,E1102,E1120,E1121,E1129,E1133,E1135,E1136,R0401,R0801,R0901,R0902,R0903,R0904,R0911,R0912,R0913,R0914,R0915,R0916,R1702,R1705,R1706,R1710,R1735,W0104,W0108,W0122,W0123,W0125,W0201,W0212,W0221,W0223,W0311,W0401,W0404,W0511,W0612,W0613,W0614,W0621,W0631,W0632,W0640,W0718,W0719,W1113,W1510,W1514
+
+[REPORTS]
+
+# Set the output format. Available formats are text, parseable, colorized, msvs
+# (visual studio) and html
+output-format=text
+
+# Tells whether to display a full report or only the messages
+reports=no
+
+# Python expression which should return a note less than 10 (10 is the highest
+# note). You have access to the variables errors warning, statement which
+# respectively contain the number of errors / warnings messages and the total
+# number of statements analyzed. This is used by the global evaluation report
+# (R0004).
+evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
+
+# Enable the report(s) with the given id(s).
+#enable-report=
+
+# Disable the report(s) with the given id(s).
+#disable-report=
+
+
+# checks for :
+# * doc strings
+# * modules / classes / functions / methods / arguments / variables name
+# * number of arguments, local variables, branches, returns and statements in
+# functions, methods
+# * required module attributes
+# * dangerous default values as arguments
+# * redefinition of function / method / class
+# * uses of the global statement
+#
+[BASIC]
+
+# Regular expression which should only match functions or classes name which do
+# not require a docstring
+no-docstring-rgx=__.*__
+
+# Regular expression which should only match correct module names
+module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+
+# Regular expression which should only match correct module level names
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+
+# Regular expression which should only match correct class names
+class-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Regular expression which should only match correct function names
+function-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression which should only match correct method names
+method-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression which should only match correct instance attribute names
+attr-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression which should only match correct argument names
+argument-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression which should only match correct variable names
+variable-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression which should only match correct list comprehension /
+# generator expression variable names
+inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_
+
+# Bad variable names which should always be refused, separated by a comma
+bad-names=foo,bar,baz,toto,tutu,tata
+
+
+# try to find bugs in the code using type inference
+#
+[TYPECHECK]
+
+# Tells whether missing members accessed in mixin class should be ignored. A
+# mixin class is detected if its name ends with "mixin" (case insensitive).
+ignore-mixin-members=yes
+
+# List of classes names for which member attributes should not be checked
+# (useful for classes with attributes dynamically set).
+ignored-classes=SQLObject
+
+
+# List of members which are set dynamically and missed by pylint inference
+# system, and so shouldn't trigger E0201 when accessed.
+generated-members=REQUEST,acl_users,aq_parent
+
+
+# checks for
+# * unused variables / imports
+# * undefined variables
+# * redefinition of variable from builtins or from an outer scope
+# * use of variable before assignment
+#
+[VARIABLES]
+
+# Tells whether we should check for unused import in __init__ files.
+init-import=no
+
+# A regular expression matching names used for dummy variables (i.e. not used).
+dummy-variables-rgx=_|dummy
+
+# List of additional names supposed to be defined in builtins. Remember that
+# you should avoid to define new builtins when possible.
+additional-builtins=
+
+
+# checks for
+# * external modules dependencies
+# * relative / wildcard imports
+# * cyclic imports
+# * uses of deprecated modules
+#
+[IMPORTS]
+
+# Deprecated modules which should not be used, separated by a comma
+deprecated-modules=regsub,TERMIOS,Bastion,rexec
+
+# Create a graph of every (i.e. internal and external) dependencies in the
+# given file (report R0402 must not be disabled)
+import-graph=
+
+# Create a graph of external dependencies in the given file (report R0402 must
+# not be disabled)
+ext-import-graph=
+
+# Create a graph of internal dependencies in the given file (report R0402 must
+# not be disabled)
+int-import-graph=
+
+
+# checks for sign of poor/misdesign:
+# * number of methods, attributes, local variables...
+# * size, complexity of functions, methods
+#
+[DESIGN]
+
+# Maximum number of arguments for function / method
+max-args=5
+
+# Maximum number of locals for function / method body
+max-locals=15
+
+# Maximum number of return / yield for function / method body
+max-returns=6
+
+# Maximum number of statements in function / method body
+max-statements=50
+
+# Maximum number of parents for a class (see R0901).
+max-parents=7
+
+# Maximum number of attributes for a class (see R0902).
+max-attributes=7
+
+# Minimum number of public methods for a class (see R0903).
+min-public-methods=2
+
+# Maximum number of public methods for a class (see R0904).
+max-public-methods=20
+
+
+# checks for :
+# * methods without self as first argument
+# * overridden methods signature
+# * access only to existent members via self
+# * attributes not defined in the __init__ method
+# * supported interfaces implementation
+# * unreachable code
+#
+[CLASSES]
+
+# List of method names used to declare (i.e. assign) instance attributes.
+defining-attr-methods=__init__,__new__,setUp
+
+# checks for similarities and duplicated code. This computation may be
+# memory / CPU intensive, so you should disable it if you experiments some
+# problems.
+#
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=4
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+
+
+# checks for :
+# * unauthorized constructions
+# * strict indentation
+# * line length
+# * use of <> instead of !=
+#
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+# Maximum number of lines in a module
+max-module-lines=2000
+
+# String used as indentation unit. This is usually " " (4 spaces) or "\t" (1
+# tab).
+indent-string='    '
+
+
+# checks for:
+# * warning notes in the code like FIXME, XXX
+# * PEP 263: source code with non ascii character but no encoding declaration
+#
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,XXX,TODO

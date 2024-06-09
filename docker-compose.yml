@@ -1,0 +1,14 @@
+services:
+  postgres:
+    extends:
+      file: docker-compose.common.yml
+      service: postgres
+    ports:
+      - "5432:5432"
+
+  django:
+    extends:
+      file: docker-compose.common.yml
+      service: django
+    depends_on:
+      - postgres
