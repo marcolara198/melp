@@ -30,3 +30,6 @@ User basic authentication
 superuser: admin admin
 
 normal: test 123456
+
+### Postman collection
+melp.postman_collection

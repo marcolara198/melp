@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "cc01b690-cb19-4188-93b8-4404201dc3c2",
+		"name": "melp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read restaurant",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/restaurant/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurant",
+						""
+					]
+				},
+				"description": "## Endpoints\n### List All Restaurants\nRetrieve a list of restaurants with support for pagination and filtering.\n\n**URL:** `/api/restaurant/`  \n**Method:** `GET`  \n**Authentication:** Required\n\n#### Query Parameters\n\n- `search` (string): Search a word in name, site, email, phone, street, city and state fields.\n- `limit` (integer): Specifies the number of results per page. Default is `20`.\n- `offset` (integer): Specifies the number of results offset.\n- `ordering` (string): Order results by one field.\n\n#### Response\n```json\n{\n  \"count\": 100,  // Total number of restaurants\n  \"next\": \"http://example.com/api/restaurants/?page=2\",\n  \"previous\": null,\n  \"results\": [\n    {\n      \"id\": \"1\",\n      \"rating\": 4,\n      \"name\": \"Restaurant Name\",\n      \"site\": \"http://restaurant-site.com\",\n      \"email\": \"contact@restaurant.com\",\n      \"phone\": \"123-456-7890\",\n      \"street\": \"123 Main St\",\n      \"city\": \"CityName\",\n      \"state\": \"StateName\",\n      \"lat\": 40.7128,\n      \"lng\": -74.0060\n    },\n    ...\n  ]\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Retrive restaurant",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/restaurant/556577d3-cc15-4427-b315-41de78f97286/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurant",
+						"556577d3-cc15-4427-b315-41de78f97286",
+						""
+					]
+				},
+				"description": "## Endpoints\n\n### Retrieve a Specific Restaurant\nGet details of a specific restaurant.\n\n**URL:** `/api/restaurants/<id>/`  \n**Method:** `GET`  \n**Authentication:** Required\n\n#### Response\n```json\n{\n  \"id\": \"unique_id\",\n  \"rating\": 4,\n  \"name\": \"Restaurant Name\",\n  \"site\": \"http://restaurant-site.com\",\n  \"email\": \"contact@restaurant.com\",\n  \"phone\": \"123-456-7890\",\n  \"street\": \"123 Main St\",\n  \"city\": \"CityName\",\n  \"state\": \"StateName\",\n  \"lat\": 40.7128,\n  \"lng\": -74.0060\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Update restaurant",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rating\": 4,\n    \"city\": \"City new\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/restaurant/d411e303-dae3-4610-b805-e803f61bb7ab/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurant",
+						"d411e303-dae3-4610-b805-e803f61bb7ab",
+						""
+					]
+				},
+				"description": "### Update a Specific Restaurant\nUpdate details of a specific restaurant.\n\n**URL:** `/api/restaurants/<id>/`  \n**Method:** `PUT`  \n**Authentication:** Required\n\n#### Request Body\n```json\n{\n  \"rating\": 4,\n  \"name\": \"Updated Restaurant Name\",\n  \"site\": \"http://updated-restaurant-site.com\",\n  \"email\": \"updated-contact@restaurant.com\",\n  \"phone\": \"987-654-3210\",\n  \"street\": \"456 Another St\",\n  \"city\": \"UpdatedCityName\",\n  \"state\": \"UpdatedStateName\",\n  \"lat\": 34.0522,\n  \"lng\": -118.2437\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete restaurant",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/restaurant/94aeae94-cef6-4da5-a5cf-cb1f19705b09/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurant",
+						"94aeae94-cef6-4da5-a5cf-cb1f19705b09",
+						""
+					]
+				},
+				"description": "## Endpoints\n\n### Delete a Specific Restaurant\nDelete a specific restaurant record.\n\n**URL:** `/api/restaurants/<id>/`  \n**Method:** `DELETE`  \n**Authentication:** Required\n\n#### Response\n204 no content"
+			},
+			"response": []
+		},
+		{
+			"name": "Create restaurant",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rating\": 1,\n    \"name\": \"new\",\n    \"site\": \"https://ur.com\",\n    \"email\": \"email@hotmail.com\",\n    \"phone\": \"534 814 204\",\n    \"street\": \"82247 street\",\n    \"city\": \"City\",\n    \"state\": \"State\",\n    \"lat\": \"19.440057\",\n    \"lng\": \"-99.127047\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/restaurant/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurant",
+						""
+					]
+				},
+				"description": "## Endpoints\n### Create a Restaurant\nCreate a new restaurant record.\n\n**URL:** `/api/restaurant/`  \n**Method:** `POST`  \n**Authentication:** Required\n\n#### Request Body\n```json\n{\n    \"id\": \"unique_id\",\n    \"rating\": 4,\n    \"name\": \"Restaurant Name\",\n    \"site\": \"http://restaurant-site.com\",\n    \"email\": \"contact@restaurant.com\",\n    \"phone\": \"123-456-7890\",\n    \"street\": \"123 Main St\",\n    \"city\": \"CityName\",\n    \"state\": \"StateName\",\n    \"lat\": 40.7128,\n    \"lng\": -74.0060\n}\n```\n\n#### Response\n```json\n{\n    \"id\": \"unique_id\",\n    \"rating\": 4,\n    \"name\": \"Restaurant Name\",\n    \"site\": \"http://restaurant-site.com\",\n    \"email\": \"contact@restaurant.com\",\n    \"phone\": \"123-456-7890\",\n    \"street\": \"123 Main St\",\n    \"city\": \"CityName\",\n    \"state\": \"StateName\",\n    \"lat\": 40.7128,\n    \"lng\": -74.0060\n  }\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "statistics",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/restaurants/statistics/?latitude=19.440057&longitude=-99.127047&radius=100",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"restaurants",
+						"statistics",
+						""
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "19.440057"
+						},
+						{
+							"key": "longitude",
+							"value": "-99.127047"
+						},
+						{
+							"key": "radius",
+							"value": "100"
+						}
+					]
+				},
+				"description": "## Endpoints\n\n### Restaurant Statistics\nRetrieve statistical information (average and standard deviation of ratings) for restaurants within a specified radius of a given point.\n\n**URL:** `/api/restaurants/statistics/`  \n**Method:** `GET`  \n**Authentication:** Required\n\n#### Query Parameters\n- `latitude` (float): Latitude of the center point.\n- `longitude` (float): Longitude of the center point.\n- `radius` (float): Radius in meters within which to search for restaurants.\n\n#### Request Example\nlocalhost:8000/api/restaurants/statistics/?latitude=19.440057&longitude=-99.127047&radius=100"
+			},
+			"response": []
+		}
+	]
+}
