@@ -1,0 +1,17 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: black
+        name: black
+        entry: melp-django black --skip-string-normalization --line-length 120
+        language: docker_image
+        types: [python]
+        exclude: migrations/
+    -   id: pylint
+        name: pylint
+        entry: melp-django pylint
+        language: docker_image
+        types: [python]
+        exclude: migrations/
+        require_serial: false
+        args: [--rcfile=pylint.rc, --jobs=0]
