@@ -1,6 +1,9 @@
-import statistics
-from geopy import distance
 from django_filters.rest_framework import DjangoFilterBackend
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import D
+from django.contrib.gis.db.models.functions import Distance
+from django.db.models import Avg
+from django.db.models import StdDev
 from rest_framework import views
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -36,22 +39,16 @@ class RestaurantStatisticsView(views.APIView):
         longitude = float(request.query_params.get('longitude', 0))
         radius = float(request.query_params.get('radius', 0))
 
-        restaurants = Restaurant.objects.all()
+        user_location = Point(latitude, longitude, srid=4326)
 
-        count = 0
-        avg = 0
-        rating_added = 0
-        dict_rating = []
-        std = 0
-        for restaurant in restaurants:
-            if radius >= distance.distance((latitude, longitude), (restaurant.lat, restaurant.lng)).m:
-                rating_added += restaurant.rating
-                dict_rating.append(restaurant.rating)
-                count += 1
+        nearby_restaurants = Restaurant.objects.annotate(distance=Distance('location', user_location)).filter(
+            location__distance_lte=(user_location, D(m=radius))
+        )
 
-        avg = rating_added / count
-        std = statistics.stdev(dict_rating)
-        print(count, avg, rating_added, dict_rating, std)
+        results = nearby_restaurants.aggregate(Avg('rating'), StdDev('rating'))
+        count = nearby_restaurants.count()
+        avg = results['rating__avg']
+        std = results['rating__stddev']
 
         serializer = RestaurantStatisticsSerializer({'count': count, 'avg': avg, 'std': std})
         return Response(serializer.data)

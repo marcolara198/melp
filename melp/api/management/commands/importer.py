@@ -3,6 +3,8 @@ import os
 from tqdm import tqdm
 import pandas as pd
 
+from django.contrib.gis.geos import Point
+
 
 class Importer:
     def get_filepath(self):
@@ -42,6 +44,7 @@ class Importer:
                     state=row.state,
                     lat=row.lat,
                     lng=row.lng,
+                    location=Point(row.lat, row.lng),
                 )
             )
         Restaurant.objects.bulk_create(data_to_import, ignore_conflicts=False)

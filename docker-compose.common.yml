@@ -1,7 +1,7 @@
 services:
   postgres:
     hostname: postgres_server
-    image: postgres:16.2
+    image: postgis/postgis:16-3.4
     restart: always
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
@@ -21,4 +21,4 @@ services:
     extends: base-django
     command: python manage.py runserver_plus 0.0.0.0:8000
     ports:
-      - 8001:8000
+      - 8000:8000

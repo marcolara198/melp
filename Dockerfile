@@ -1,7 +1,7 @@
 FROM python:3.12.2
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y binutils libproj-dev gdal-bin && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /code
 WORKDIR /code/melp
